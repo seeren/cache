@@ -1,0 +1,24 @@
+{
+    "name": "seeren/cache",
+    "description": "Psr 6 implementation, manage http and file cache",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "Cyril Ichti",
+        "email": "consultant@seeren.fr",
+        "homepage" : "http://www.seeren.fr"
+      }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+      "php": ">=7.0.1",
+      "psr/cache": "1.0.x-dev"
+    },
+    "autoload": {
+      "psr-4": {
+		"Seeren\\Cache\\": "src/",
+		"Seeren\\Cache\\Test\\": "test/"
+      }
+  }
+}
