@@ -13,7 +13,8 @@
     "minimum-stability": "dev",
     "require": {
       "php": ">=7.0.1",
-      "psr/cache": "1.0.x-dev"
+      "psr/cache": "1.0.x-dev",
+      "seeren/http": "*"
     },
     "autoload": {
       "psr-4": {
