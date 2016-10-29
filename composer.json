@@ -1,6 +1,6 @@
 {
     "name": "seeren/cache",
-    "description": "Psr 6 implementation, manage http and file cache",
+    "description": "Psr 6 implementation with stream interface adapter",
     "type": "library",
     "license": "MIT",
     "authors": [
