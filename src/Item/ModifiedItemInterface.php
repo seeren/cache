@@ -26,11 +26,11 @@ interface ModifiedItemInterface
 {
 
    /**
-    * Set or get last modification
+    * Set or get date of last modification
     *
     * @param int $timeStamp timeStamp of last modification
     * @return string GMT of last modification
     */
-   public function lastModification(int $timeStamp): string;
+   public function last(int $timeStamp): string;
 
 }

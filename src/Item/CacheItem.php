@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 namespace Seeren\Cache\Item;
@@ -62,22 +62,22 @@ final class CacheItem implements CacheItemInterface, ModifiedItemInterface
     * @param string $key key for the current cache item
     * @return null
     */
-   public final function __construct(string $key)
+   public final function __construct(string $key = null)
    {
-       $this->key = $key;
+       $this->key = $key ? $key : "item";
        $this->hit = false;
        $this->timeToLive = 0;
        $this->lastSave = time();
-       $this->lastModification($this->lastSave);
+       $this->last($this->lastSave);
    }
 
    /**
-    * Set or get last modification
+    * Set or get date of last modification
     *
     * @param int $timeStamp timeStamp of last modification
     * @return string GMT of last modification
     */
-   public final function lastModification(int $timeStamp = null): string
+   public final function last(int $timeStamp = null): string
    {
        if ($timeStamp) {
            $this->lastModification = gmdate(
