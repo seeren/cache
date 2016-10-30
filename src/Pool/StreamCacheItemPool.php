@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 namespace Seeren\Cache\Pool;
@@ -26,7 +26,6 @@ use InvalidArgumentException;
  * @category Seeren
  * @package Cache
  * @subpackage Pool
- * @final
  */
 class StreamCacheItemPool extends AbstractCacheItemPool
 {
@@ -58,20 +57,21 @@ class StreamCacheItemPool extends AbstractCacheItemPool
      * @param string $key item key
      * @return string target
      */
-    private function getTarget(string $key): string
+    private final function getTarget(string $key): string
     {
-        $target = str_replace(".", DIRECTORY_SEPARATOR, $key);
+        $dir = explode(".", $key);
+        $file = array_pop($dir);
+        $target = implode(DIRECTORY_SEPARATOR, $dir)
+                . DIRECTORY_SEPARATOR . $file;
         if (!is_file($target)) {
             $path = "";
-            $dir = explode(DIRECTORY_SEPARATOR, $target);
-            array_pop($dir);
             foreach ($dir as $value) {
-                if (!is_dir($this->includePath . $value)) {
-                    $path .= $value . DIRECTORY_SEPARATOR;
+                $path .= $value . DIRECTORY_SEPARATOR;
+                if (!is_dir($this->includePath . $path)) {
                     mkdir($this->includePath . $path);
                 }
             }
-        }
+        }        
         return $target;
     }
 
@@ -110,7 +110,9 @@ class StreamCacheItemPool extends AbstractCacheItemPool
     protected final function poolSave(CacheItemInterface $item): bool
     {
         try {
-            $stream = new Stream($item->getKey(), Stream::MODE_W_MORE);
+            $stream = new Stream(
+                $this->includePath . $this->getTarget($item->getKey()),
+                Stream::MODE_W_MORE);
             $stream->write(serialize($item));
             $stream->detach();
             return true;
