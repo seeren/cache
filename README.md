@@ -1,7 +1,8 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square&colorA=000000&colorB=f96f07)](https://raw.githubusercontent.com/seeren/cache/master/LICENSE) [![Packagist](https://img.shields.io/packagist/v/seeren/cache.svg?style=flat-square&colorA=000000&colorB=59d800)]() [![Packagist](https://img.shields.io/packagist/dt/seeren/cache.svg?style=flat-square&colorA=000000&colorB=59d800)]()
 
 # Seeren\Cache\
-Psr 6 implementation with stream interface adapter. Performance as standard for controllers, get a pool driver then manage cache item's.
+Psr-6 implementation with stream interface adapter.
+Performance as standard for controllers: get a pool driver then manage cache item's.
 ### Seeren\Cache\StreamCacheItemPool
 Adapter for psr 7 stream interface. AbstractCacheItemPool implements methods from psr-6 and declare template method for get, post and delete item for driver adapters.
 ```php
@@ -32,8 +33,8 @@ Require this package with composer
 ```
 composer require seeren/cache dev-master
 ```
-## Tests
-Pass with phpunit
+## Run the tests
+Run with phpunit
 ```
 phpunit test/StreamCacheItemPoolTest.php
 phpunit test/CacheItemTest.php
