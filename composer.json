@@ -21,5 +21,8 @@
 		"Seeren\\Cache\\": "src/",
 		"Seeren\\Cache\\Test\\": "test/"
       }
-  }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "6.1"
+    }
 }
