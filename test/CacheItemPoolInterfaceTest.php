@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.1
+ * @version 1.1.1
  */
 
 namespace Seeren\Cache\Test;
@@ -25,7 +25,7 @@ use Psr\Cache\CacheItemPoolInterface;
  * @subpackage Test
  * @abstract
  */
-abstract class CacheItemPoolInterfaceTest extends \PHPUnit_Framework_TestCase
+abstract class CacheItemPoolInterfaceTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
@@ -91,7 +91,6 @@ abstract class CacheItemPoolInterfaceTest extends \PHPUnit_Framework_TestCase
     */
    public final function testHasItem()
    {
-       
        $pool = $this->getCacheItemPoolInterface();
        $pool->getItem("foo");
        $this->assertTrue(

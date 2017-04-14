@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.1
+ * @version 1.1.1
  */
 
 namespace Seeren\Cache\Test;
@@ -25,7 +25,7 @@ use Psr\Cache\CacheItemInterface;
  * @subpackage Test
  * @abstract
  */
-abstract class CacheItemInterfaceTest extends \PHPUnit_Framework_TestCase
+abstract class CacheItemInterfaceTest extends \PHPUnit\Framework\TestCase
 {
 
    /**
