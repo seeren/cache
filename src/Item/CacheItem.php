@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.2
+ * @version 1.0.3
  */
 
 namespace Seeren\Cache\Item;
@@ -152,7 +152,7 @@ final class CacheItem implements CacheItemInterface, ModifiedItemInterface
    public final function expiresAfter($time)
    {
        $this->timeToLive = $time instanceof DateInterval
-                         ? (new DateTime())->add($interval)->getTimestamp()
+                         ? (new DateTime())->add($time)->getTimestamp()
                          - time()
                          : (int) $time;
        return $this;
