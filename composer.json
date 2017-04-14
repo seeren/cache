@@ -1,6 +1,7 @@
 {
     "name": "seeren/cache",
     "description": "Psr 6 implementation with stream interface adapter",
+    "keywords": ["psr-6", "psr-7" ,"cache"],
     "type": "library",
     "license": "MIT",
     "authors": [
