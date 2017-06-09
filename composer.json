@@ -1,7 +1,7 @@
 {
     "name": "seeren/cache",
-    "description": "Psr 6 implementation with stream interface adapter",
-    "keywords": ["psr-6", "psr-7" ,"cache"],
+    "description": "Cache pool item's",
+    "keywords": ["cache", "pool", "item", "psr-6"],
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -15,15 +15,20 @@
     "require": {
       "php": ">=7.0.1",
       "psr/cache": "1.0.x-dev",
-      "seeren/http": "*"
+      "seeren/http": "dev-master"
     },
     "autoload": {
       "psr-4": {
-		"Seeren\\Cache\\": "src/",
+		"Seeren\\Cache\\": "src/"
+      }
+    },
+    "autoload-dev": {
+      "psr-4": {
 		"Seeren\\Cache\\Test\\": "test/"
       }
     },
     "require-dev": {
-        "phpunit/phpunit": "6.1"
+        "phpunit/phpunit": "6.1.*",
+        "satooshi/php-coveralls": "dev-master"
     }
 }
