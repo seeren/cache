@@ -1,7 +1,7 @@
 {
     "name": "seeren/cache",
     "description": "Cache pool item's",
-    "keywords": ["cache", "pool", "item", "psr-6"],
+    "keywords": ["psr-6", "cache", "pool", "item"],
     "type": "library",
     "license": "MIT",
     "authors": [
