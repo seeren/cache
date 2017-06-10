@@ -152,8 +152,8 @@ abstract class AbstractCacheItemPool implements CacheItemPoolInterface
     */
    public final function clear()
    {
-       foreach ($this->pool as $key => $value) {
-           if (!$this->poolDeleteItem($this->pool[$key])) {
+       foreach ($this->pool as $value) {
+           if (!$this->poolDeleteItem($value)) {
                return false;
            }
        }
