@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/cache
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 namespace Seeren\Cache\Test;
@@ -169,7 +169,7 @@ abstract class AbstractCacheItemPoolTest extends \PHPUnit\Framework\TestCase
    {
        $pool = $this->getCacheItemPool();
        $uniqId = uniqid();
-       $item = $pool->getItem($uniqId);
+       $item = $this->getCacheItemPool()->getItem($uniqId);
        $item->set(new stdClass());
        $pool->save($item);
        $this->assertTrue($pool->save($pool->getItem($uniqId)));

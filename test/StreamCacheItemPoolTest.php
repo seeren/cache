@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/cache
- * @version 2.0.1
+ * @version 2.0.2
  */
 
 namespace Seeren\Cache\Test;
@@ -297,6 +297,8 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     * @covers \Seeren\Cache\Item\CacheItem::__construct
     * @covers \Seeren\Cache\Item\CacheItem::last
     * @covers \Seeren\Cache\Item\CacheItem::__sleep
+    * @covers \Seeren\Cache\Item\CacheItem::__wakeup
+    * @covers \Seeren\Cache\Item\CacheItem::set
     * @covers \Seeren\Cache\Item\CacheItem::getKey
     */
    public function testSaveTrue()
