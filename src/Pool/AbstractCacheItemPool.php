@@ -9,8 +9,8 @@
  *    /_//_//_//_//_//_/
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
- * @link http://www.seeren.fr/ Seeren
- * @version 1.0.1
+ * @link https://github.com/seeren/cache
+ * @version 1.0.2
  */
 
 namespace Seeren\Cache\Pool;
@@ -152,8 +152,8 @@ abstract class AbstractCacheItemPool implements CacheItemPoolInterface
     */
    public final function clear()
    {
-       foreach (array_keys($this->pool) as $value) {
-           if (!$this->deleteItem($value)) {
+       foreach ($this->pool as $key => $value) {
+           if (!$this->poolDeleteItem($this->pool[$key])) {
                return false;
            }
        }
