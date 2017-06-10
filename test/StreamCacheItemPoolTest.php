@@ -165,9 +165,10 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
    public function testClearFalse()
    {
        $pool = $this->getCacheItemPool();
+       $pool->__construct();
        $uniqId = uniqid();
-       $pool->getItem($uniqId);
-       unlink(__DIR__ . "/pool/" . $uniqId);
+       $pool->getItem("dummy." . $uniqId);
+       unlink(sys_get_temp_dir() . "/dummy/" . $uniqId);
        $this->assertFalse($pool->clear());
    }
 
