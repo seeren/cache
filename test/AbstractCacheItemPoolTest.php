@@ -17,6 +17,7 @@ namespace Seeren\Cache\Test;
 
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\CacheItemInterface;
+use stdClass;
 
 /**
  * Class for test CacheItemPoolInterface
@@ -167,7 +168,11 @@ abstract class AbstractCacheItemPoolTest extends \PHPUnit\Framework\TestCase
    protected function assertSaveTrue()
    {
        $pool = $this->getCacheItemPool();
-       $this->assertTrue($pool->save($pool->getItem(uniqid())));
+       $uniqId = uniqid();
+       $item = $pool->getItem($uniqId);
+       $item->set(new stdClass());
+       $pool->save($item);
+       $this->assertTrue($pool->save($pool->getItem($uniqId)));
    }
 
    /**
