@@ -38,7 +38,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
    protected function getCacheItemPool(): CacheItemPoolInterface
    {
        return (new ReflectionClass(StreamCacheItemPool::class))
-              ->newInstanceArgs([__DIR__ . "/pool"]);
+              ->newInstanceArgs(["./test/pool"]);
    }
 
    /**
