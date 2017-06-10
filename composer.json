@@ -1,6 +1,6 @@
 {
     "name": "seeren/cache",
-    "description": "Cache pool item's",
+    "description": "Manage cache items",
     "keywords": ["psr-6", "cache", "pool", "item"],
     "type": "library",
     "license": "MIT",
