@@ -25,6 +25,7 @@ use DateTime;
  * @category Seeren
  * @package Cache
  * @subpackage Item
+ * @see http://www.php-fig.org/psr/psr-6/
  * @final
  */
 final class CacheItem implements CacheItemInterface, ModifiedItemInterface

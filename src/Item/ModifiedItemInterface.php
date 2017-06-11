@@ -20,7 +20,7 @@ namespace Seeren\Cache\Item;
  * 
  * @category Seeren
  * @package Cache
- * @package Item
+ * @subpackage Item
  */
 interface ModifiedItemInterface
 {

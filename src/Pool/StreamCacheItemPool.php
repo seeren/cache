@@ -26,6 +26,7 @@ use InvalidArgumentException;
  * @category Seeren
  * @package Cache
  * @subpackage Pool
+ * @see http://www.php-fig.org/psr/psr-6/
  */
 class StreamCacheItemPool extends AbstractCacheItemPool
 {
