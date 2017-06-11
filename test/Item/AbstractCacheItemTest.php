@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file contain Seeren\Cache\Test\AbstractCacheItemTest class
+ * This file contain Seeren\Cache\Test\Item\AbstractCacheItemTest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
@@ -24,7 +24,7 @@ use DateTime;
  * 
  * @category Seeren
  * @package Cache
- * @subpackage Test
+ * @subpackage Test\Item
  * @abstract
  */
 abstract class AbstractCacheItemTest extends \PHPUnit\Framework\TestCase

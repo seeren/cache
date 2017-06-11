@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file contain Seeren\Cache\Test\StreamCacheItemPoolTest class
+ * This file contain Seeren\Cache\Test\Pool\StreamCacheItemPoolTest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
@@ -16,8 +16,8 @@
 namespace Seeren\Cache\Test;
 
 use Psr\Cache\CacheItemPoolInterface;
-use Seeren\Cache\Pool\StreamCacheItemPool;
 use Psr\Cache\InvalidArgumentException;
+use Seeren\Cache\Pool\StreamCacheItemPool;
 use ReflectionClass;
 
 /**
@@ -25,7 +25,7 @@ use ReflectionClass;
  * 
  * @category Seeren
  * @package Cache
- * @subpackage Test
+ * @subpackage Test\Pool
  */
 class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
 {
@@ -38,7 +38,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
    protected function getCacheItemPool(): CacheItemPoolInterface
    {
        return (new ReflectionClass(StreamCacheItemPool::class))
-              ->newInstanceArgs(["./test/pool"]);
+              ->newInstanceArgs(["./test/cache"]);
    }
 
    /**
@@ -221,7 +221,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
        $pool = $this->getCacheItemPool();
        $uniqId = uniqid();
        $pool->getItem($uniqId);
-       unlink(__DIR__ . "/pool/" . $uniqId);
+       unlink(__DIR__ . "/../cache/" . $uniqId);
        $this->assertFalse($pool->deleteItem($uniqId));
    }
 

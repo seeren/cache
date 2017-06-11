@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file contain Seeren\Cache\Test\AbstractCacheItemPoolTest class
+ * This file contain Seeren\Cache\Test\Pool\AbstractCacheItemPoolTest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
@@ -24,7 +24,7 @@ use stdClass;
  * 
  * @category Seeren
  * @package Cache
- * @subpackage Test
+ * @subpackage Test\Pool
  * @abstract
  */
 abstract class AbstractCacheItemPoolTest extends \PHPUnit\Framework\TestCase

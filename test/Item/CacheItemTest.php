@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file contain Seeren\Cache\Test\CacheItemInterfaceTest class
+ * This file contain Seeren\Cache\Test\Item\CacheItemInterfaceTest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
@@ -24,7 +24,7 @@ use ReflectionClass;
  * 
  * @category Seeren
  * @package Cache
- * @subpackage Test
+ * @subpackage Test\Item
  */
 class CacheItemTest extends AbstractCacheItemTest
 {
