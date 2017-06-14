@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1497218074">
-  <project timestamp="1497218074">
+<coverage generated="1497472902">
+  <project timestamp="1497472902">
     <package name="Seeren\Cache\Exception">
       <file name="C:\xampp\htdocs\seeren-dev-master\cache\src/Exception/InvalidArgumentException.php">
         <class name="InvalidArgumentException" namespace="Seeren\Cache\Exception" fullPackage="Cache.Exception" category="Seeren" package="Cache" subpackage="Exception">
