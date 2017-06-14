@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/cache
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 namespace Seeren\Cache\Test;
@@ -38,9 +38,9 @@ abstract class AbstractCacheItemTest extends \PHPUnit\Framework\TestCase
    abstract protected function getCacheItem(): CacheItemInterface;
 
    /**
-    * Assert gey key
+    * Test gey key
     */
-   protected function assertGetKey()
+   public function testGetKey()
    {
        $this->assertTrue((bool) preg_match(
            "/^([A-Za-z0-9_\.]{1,64})$/",
@@ -48,17 +48,17 @@ abstract class AbstractCacheItemTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Assert get
+    * Test get
     */
-   protected function assertGet()
+   public function testGet()
    {
        $this->assertTrue(null === $this->getCacheItem()->get());
    }
 
    /**
-    * Assert set
+    * Test set
     */
-   protected function assertSet()
+   public function testSet()
    {
        $item = $this->getCacheItem();
        $value = $this->getCacheItem();
@@ -67,9 +67,9 @@ abstract class AbstractCacheItemTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Assert serialize
+    * Test serialize
     */
-   protected function assertSerialize()
+   public function testSerialize()
    {
        $this->assertTrue(is_string(serialize(
            $this->getCacheItem()->set($this->getCacheItem()))
@@ -77,9 +77,9 @@ abstract class AbstractCacheItemTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Assert unserialize
+    * Test unserialize
     */
-   protected function assertUnserialize()
+   public function testUnserialize()
    {
        $value = $this->getCacheItem();
        $serialized = serialize($this->getCacheItem()->set($value));
@@ -89,17 +89,17 @@ abstract class AbstractCacheItemTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Assert is hit false
+    * Test is hit false
     */
-   protected function assertIsHitFalse()
+   public function testIsHitFalse()
    {
        $this->assertFalse($this->getCacheItem()->isHit());
    }
 
    /**
-    * Assert is hit true
+    * Test is hit true
     */
-   protected function assertIsHitTrue()
+   public function testIsHitTrue()
    {
        $this->assertTrue(unserialize(serialize(
            $this->getCacheItem()))->isHit()
@@ -107,9 +107,9 @@ abstract class AbstractCacheItemTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Assert expires after
+    * Test expires after
     */
-   protected function assertExpiresAfter()
+   public function testExpiresAfter()
    {
        $item = $this->getCacheItem();
        $item->expiresAfter(5);
@@ -118,9 +118,9 @@ abstract class AbstractCacheItemTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Assert expires after DateInterval
+    * Test expires after DateInterval
     */
-   protected function assertExpiresAfterDateInterval()
+   public function testExpiresAfterDateInterval()
    {
        $item = $this->getCacheItem();
        $item->expiresAfter(new DateInterval("PT2H"));
@@ -129,9 +129,9 @@ abstract class AbstractCacheItemTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Assert last
+    * Test last
     */
-   protected function assertLast()
+   public function testLast()
    {
        $item = $this->getCacheItem();
        $timeStamp = time();
@@ -140,9 +140,9 @@ abstract class AbstractCacheItemTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Assert expires at
+    * Test expires at
     */
-   protected function assertExpiresAt()
+   public function testExpiresAt()
    {
        $item = $this->getCacheItem();
        $item->expiresAt(5);
@@ -151,9 +151,9 @@ abstract class AbstractCacheItemTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Assert expires at date
+    * Test expires at date
     */
-   protected function assertExpiresAtDate()
+   public function testExpiresAtDate()
    {
        $item = $this->getCacheItem();
        $item->expiresAt(new DateTime());
@@ -162,9 +162,9 @@ abstract class AbstractCacheItemTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Assert key
+    * Test key
     */
-   protected function assertKey()
+   public function testKey()
    {
        $key = "foo";
        $item = $this->getCacheItem();
@@ -173,9 +173,9 @@ abstract class AbstractCacheItemTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Assert __wakeup
+    * Test __wakeup
     */
-   protected function assert__wakeup()
+   public function test__wakeup()
    {
        $item = $this->getCacheItem();
        $item->expiresAt(-3600);

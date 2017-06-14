@@ -45,16 +45,16 @@ abstract class AbstractCacheItemPoolTest extends \PHPUnit\Framework\TestCase
    /**
     * Asert get item
     */
-   protected function assertGetItem()
+   public function testGetItem()
    {
        $this->assertTrue($this->getCacheItemPool()->getItem(uniqid())
               instanceof CacheItemInterface);
    }
 
    /**
-    * Assert get item InvalidArgumentException
+    * Test get item InvalidArgumentException
     */
-   protected function assertGetItemInvalidArgumentException()
+   public function testGetItemInvalidArgumentException()
    {
        $this->getCacheItemPool()->getItem("|");
    }
@@ -62,7 +62,7 @@ abstract class AbstractCacheItemPoolTest extends \PHPUnit\Framework\TestCase
    /**
     * Asert get items
     */
-   protected function assertGetItems()
+   public function testGetItems()
    {
        $uniqId = uniqid();
        $this->assertTrue($this->getCacheItemPool()->getItems([$uniqId])[$uniqId]
@@ -72,15 +72,15 @@ abstract class AbstractCacheItemPoolTest extends \PHPUnit\Framework\TestCase
    /**
     * Asert get items InvalidArgumentException
     */
-   protected function assertGetItemsInvalidArgumentException()
+   public function testGetItemsInvalidArgumentException()
    {
        $this->getCacheItemPool()->getItems(["|"]);
    }
 
    /**
-    * Assert has item
+    * Test has item
     */
-   protected function assertHasItem()
+   public function testHasItem()
    {
        $pool = $this->getCacheItemPool();
        $uniqId = uniqid();
@@ -90,17 +90,17 @@ abstract class AbstractCacheItemPoolTest extends \PHPUnit\Framework\TestCase
 
    /**
     * 
-    * Assert has item InvalidArgumentException
+    * Test has item InvalidArgumentException
     */
-   protected function assertHasItemInvalidArgumentException()
+   public function testHasItemInvalidArgumentException()
    {
        $this->getCacheItemPool()->hasItem("|");
    }
 
    /**
-    * Assert clear true
+    * Test clear true
     */
-   protected function assertClearTrue()
+   public function testClearTrue()
    {
        $pool = $this->getCacheItemPool();
        $uniqId = uniqid();
@@ -109,9 +109,9 @@ abstract class AbstractCacheItemPoolTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Assert delete item true
+    * Test delete item true
     */
-   protected function assertDeleteItemTrue()
+   public function testDeleteItemTrue()
    {
        $pool = $this->getCacheItemPool();
        $uniqId = uniqid();
@@ -120,25 +120,25 @@ abstract class AbstractCacheItemPoolTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Assert delete item false
+    * Test delete item false
     */
-   protected function assertDeleteItemFalse()
+   public function testDeleteItemFalse()
    {
        $this->assertFalse($this->getCacheItemPool()->deleteItem(uniqid()));
    }
 
    /**
-    * Assert delete item InvalidArgumentException
+    * Test delete item InvalidArgumentException
     */
-   protected function assertDeleteItemInvalidArgumentException()
+   public function testDeleteItemInvalidArgumentException()
    {
        $this->assertFalse($this->getCacheItemPool()->deleteItem("|"));
    }
 
    /**
-    * Assert delete items true
+    * Test delete items true
     */
-   protected function assertDeleteItemsTrue()
+   public function testDeleteItemsTrue()
    {
        $pool = $this->getCacheItemPool();
        $uniqId = uniqid();
@@ -147,25 +147,25 @@ abstract class AbstractCacheItemPoolTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Assert delete items false
+    * Test delete items false
     */
-   protected function assertDeleteItemsFalse()
+   public function testDeleteItemsFalse()
    {
        $this->assertFalse($this->getCacheItemPool()->deleteItems([uniqid()]));
    }
 
    /**
-    * Assert delete items InvalidArgumentException
+    * Test delete items InvalidArgumentException
     */
-   protected function assertDeleteItemsInvalidArgumentException()
+   public function testDeleteItemsInvalidArgumentException()
    {
        $this->assertFalse($this->getCacheItemPool()->deleteItems(["|"]));
    }
 
    /**
-    * Assert save true
+    * Test save true
     */
-   protected function assertSaveTrue()
+   public function testSaveTrue()
    {
        $pool = $this->getCacheItemPool();
        $uniqId = uniqid();
@@ -176,18 +176,18 @@ abstract class AbstractCacheItemPoolTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Assert save defered true
+    * Test save defered true
     */
-   protected function assertSaveDeferedTrue()
+   public function testSaveDeferedTrue()
    {
        $pool = $this->getCacheItemPool();
        $this->assertTrue($pool->saveDeferred($pool->getItem(uniqid())));
    }
 
    /**
-    * Assert save defered false
+    * Test save defered false
     */
-   protected function assertSaveDeferedFalse()
+   public function testSaveDeferedFalse()
    {
        $pool = $this->getCacheItemPool();
        $item = $pool->getItem(uniqid());
@@ -196,9 +196,9 @@ abstract class AbstractCacheItemPoolTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Assert commit true
+    * Test commit true
     */
-   protected function assertCommitTrue()
+   public function testCommitTrue()
    {
        $pool = $this->getCacheItemPool();
        $item = $pool->getItem(uniqid());

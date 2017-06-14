@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/cache
- * @version 2.0.1
+ * @version 2.0.2
  */
 
 namespace Seeren\Cache\Test;
@@ -46,7 +46,7 @@ class CacheItemTest extends AbstractCacheItemTest
     */
    public function testGetKey()
    {
-       parent::assertGetKey();
+       parent::testGetKey();
    }
 
    /**
@@ -56,7 +56,7 @@ class CacheItemTest extends AbstractCacheItemTest
     */
    public function testGet()
    {
-       parent::assertGet();
+       parent::testGet();
    }
 
    /**
@@ -67,7 +67,7 @@ class CacheItemTest extends AbstractCacheItemTest
     */
    public function testSet()
    {
-       parent::assertSet();
+       parent::testSet();
    }
 
    /**
@@ -78,7 +78,7 @@ class CacheItemTest extends AbstractCacheItemTest
     */
    public function testSerialize()
    {
-       parent::assertSerialize();
+       parent::testSerialize();
    }
 
    /**
@@ -92,7 +92,7 @@ class CacheItemTest extends AbstractCacheItemTest
     */
    public function testUnserialize()
    {
-       parent::assertUnserialize();
+       parent::testUnserialize();
    }
 
    /**
@@ -102,7 +102,7 @@ class CacheItemTest extends AbstractCacheItemTest
     */
    public function testIsHitFalse()
    {
-       parent::assertIsHitFalse();
+       parent::testIsHitFalse();
    }
 
    /**
@@ -114,7 +114,7 @@ class CacheItemTest extends AbstractCacheItemTest
     */
    public function testIsHitTrue()
    {
-       parent::assertIsHitTrue();
+       parent::testIsHitTrue();
    }
 
    /**
@@ -126,7 +126,7 @@ class CacheItemTest extends AbstractCacheItemTest
     */
    public function testExpiresAfter()
    {
-       parent::assertExpiresAfter();
+       parent::testExpiresAfter();
    }
 
    /**
@@ -138,7 +138,7 @@ class CacheItemTest extends AbstractCacheItemTest
     */
    public function testExpiresAfterDateInterval()
    {
-       parent::assertExpiresAfterDateInterval();
+       parent::testExpiresAfterDateInterval();
    }
 
    /**
@@ -147,7 +147,7 @@ class CacheItemTest extends AbstractCacheItemTest
     */
    public function testLast()
    {
-        parent::assertLast();
+        parent::testLast();
    }
 
    /**
@@ -159,7 +159,7 @@ class CacheItemTest extends AbstractCacheItemTest
     */
    public function testExpiresAt()
    {
-       parent::assertExpiresAt();
+       parent::testExpiresAt();
    }
 
    /**
@@ -171,7 +171,7 @@ class CacheItemTest extends AbstractCacheItemTest
     */
    public function testExpiresAtDate()
    {
-       parent::assertExpiresAtDate();
+       parent::testExpiresAtDate();
    }
 
    /**
@@ -181,7 +181,7 @@ class CacheItemTest extends AbstractCacheItemTest
     */
    public function testKey()
    {
-       parent::assertKey();
+       parent::testKey();
    }
 
    /**
@@ -193,7 +193,7 @@ class CacheItemTest extends AbstractCacheItemTest
     */
    public function test__wakeup()
    {
-       parent::assert__wakeup();
+       parent::test__wakeup();
    }
 
 }

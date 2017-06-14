@@ -10,13 +10,12 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/cache
- * @version 2.0.2
+ * @version 2.0.3
  */
 
 namespace Seeren\Cache\Test;
 
 use Psr\Cache\CacheItemPoolInterface;
-use Psr\Cache\InvalidArgumentException;
 use Seeren\Cache\Pool\StreamCacheItemPool;
 use ReflectionClass;
 
@@ -54,7 +53,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     */
    public function testGetItem()
    {
-       parent::assertGetItem();
+       parent::testGetItem();
    }
 
    /**
@@ -67,7 +66,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     */
    public function testGetItemInvalidArgumentException()
    {
-       parent::assertGetItemInvalidArgumentException();
+       parent::testGetItemInvalidArgumentException();
    }
 
    /**
@@ -84,7 +83,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     */
    public function testGetItems()
    {
-       parent::assertGetItems();
+       parent::testGetItems();
    }
 
    /**
@@ -98,7 +97,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     */
    public function testGetItemsInvalidArgumentException()
    {
-       parent::assertGetItemsInvalidArgumentException();
+       parent::testGetItemsInvalidArgumentException();
    }
 
    /**
@@ -114,7 +113,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     */
    public function testHasItem()
    {
-       parent::assertHasItem();
+       parent::testHasItem();
    }
 
    /**
@@ -126,7 +125,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     */
    public function testHasItemInvalidArgumentException()
    {
-       parent::assertHasItemInvalidArgumentException();
+       parent::testHasItemInvalidArgumentException();
    }
 
    /**
@@ -145,7 +144,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     */
    public function testClearTrue()
    {
-       parent::assertClearTrue();
+       parent::testClearTrue();
    }
 
    /**
@@ -188,7 +187,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     */
    public function testDeleteItemTrue()
    {
-       parent::assertDeleteItemTrue();
+       parent::testDeleteItemTrue();
    }
 
    /**
@@ -199,7 +198,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     */
    public function testDeleteItemFalse()
    {
-        parent::assertDeleteItemFalse();
+        parent::testDeleteItemFalse();
    }
 
    /**
@@ -235,7 +234,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     */
    public function testDeleteItemInvalidArgumentException()
    {
-        parent::assertDeleteItemInvalidArgumentException();
+        parent::testDeleteItemInvalidArgumentException();
    }
 
    /**
@@ -255,7 +254,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     */
    public function testDeleteItemsTrue()
    {
-       parent::assertDeleteItemsTrue();
+       parent::testDeleteItemsTrue();
    }
 
    /**
@@ -267,7 +266,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     */
    public function testDeleteItemsFalse()
    {
-       parent::assertDeleteItemsFalse();
+       parent::testDeleteItemsFalse();
    }
 
    /**
@@ -281,7 +280,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     */
    public function testDeleteItemsInvalidArgumentException()
    {
-        parent::assertDeleteItemsInvalidArgumentException();
+        parent::testDeleteItemsInvalidArgumentException();
    }
 
    /**
@@ -303,7 +302,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     */
    public function testSaveTrue()
    {
-       parent::assertSaveTrue();
+       parent::testSaveTrue();
    }
 
    /**
@@ -320,7 +319,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     */
    public function testSaveDeferedTrue()
    {
-       parent::assertSaveDeferedTrue();
+       parent::testSaveDeferedTrue();
    }
 
    /**
@@ -337,7 +336,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     */
    public function testSaveDeferedFalse()
    {
-       parent::assertSaveDeferedFalse();
+       parent::testSaveDeferedFalse();
    }
 
    /**
@@ -359,7 +358,7 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
     */
    public function testCommitTrue()
    {
-       parent::assertCommitTrue();
+       parent::testCommitTrue();
    }
 
 }
