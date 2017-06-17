@@ -15,12 +15,11 @@ composer require seeren/cache dev-master
 ## Pool Usage
 
 #### `Seeren\Cache\StreamCacheItemPool`
-This example show how to manage a cache, checking item expiration, last modification and request ETag.
+Make performing controllers using a cache for the data. This example show how to manage a cache, checking item expiration, last modification and request ETag
 ```php
 $pool = new StreamCacheItemPool;
 $eTag = md5($request->getUri()->getPath());
 $item = $pool->getItem($eTag)->expiresAfter(600);
-
 if (!$item->isHit()) {
     $pool->save($item->set($model->get());
 } else if ($item->last() !== $request->getHeaderLine("If-Modified-Since")
@@ -30,10 +29,12 @@ if (!$item->isHit()) {
     $response = $response->withStatus(304);
 }
 ```
+You can check if a cache item is hit before fetching data, then you can compare server request headers before update view
+
 ## Item Usage
 
 #### `Seeren\Cache\CacheItem`
-Pools have to manage items, but the item last() method can be used for formatting GMT date 
+The item last() method can be used for formatting GMT date, he is very helpful for manage http cache
 ```php
 $response = $response
 ->withHeader("ETag", $eTag)
