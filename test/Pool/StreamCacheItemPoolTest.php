@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/cache
- * @version 2.0.3
+ * @version 2.1.1
  */
 
 namespace Seeren\Cache\Test;
@@ -359,6 +359,31 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
    public function testCommitTrue()
    {
        parent::testCommitTrue();
+   }
+
+   /**
+    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
+    * @covers \Seeren\Cache\Item\CacheItem::__construct
+    * @covers \Seeren\Cache\Item\CacheItem::getKey
+    * @covers \Seeren\Cache\Item\CacheItem::last
+    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
+    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::commit
+    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::createItem
+    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
+    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
+    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::save
+    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::saveDeferred
+    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getTarget
+    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolGetItem
+    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolSave
+    */
+   public function testCommitFalse()
+   {
+       $pool = $this->getCacheItemPool();
+       $pool->__construct("./test/invalid target");
+       $item = $pool->getItem(uniqid());
+       $pool->saveDeferred($item);
+       $this->assertFalse($pool->commit());
    }
 
 }
