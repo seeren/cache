@@ -1,11 +1,10 @@
 {
 	"name" : "seeren/cache",
-	"description" : "Manage cache items",
+	"description" : "Manage pool items",
 	"keywords" : [
 		"psr-6",
 		"cache",
-		"pool",
-		"item"
+		"pool"
 	],
 	"type" : "library",
 	"license" : "MIT",
@@ -17,7 +16,7 @@
 	],
 	"minimum-stability" : "dev",
 	"require" : {
-		"php" : ">=7.0.1",
+		"php" : ">=7.2.0",
 		"psr/cache" : "1.0.x-dev",
 		"seeren/http" : "dev-master"
 	},
@@ -32,7 +31,7 @@
 		}
 	},
 	"require-dev" : {
-		"phpunit/phpunit" : "dev-master",
-		"satooshi/php-coveralls" : "dev-master"
+		"phpunit/phpunit" : "7.0.2",
+		"satooshi/php-coveralls" : "2.0.0"
 	}
 }
