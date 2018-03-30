@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Cache\Exception\InvalidArgumentException class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/cache
  * @version 1.0.1
  */
@@ -30,12 +29,9 @@ class InvalidArgumentException extends Exception implements
 {
 
    /**
-    * Construct InvalidArgumentException
-    * 
-    * @param string $message message
-    * @param int $code code
-    * @param Exception $previous previous exception
-    * @return null
+    * @param string $message
+    * @param int $code
+    * @param Exception $previous
     */
    public function __construct(
        string $message,

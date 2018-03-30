@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Cache\Test\Pool\StreamCacheItemPoolTest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/cache
  * @version 2.1.1
  */
@@ -30,9 +29,8 @@ class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
 {
 
     /**
-     * Get CacheItemPoolInterface
-     *
-     * @return CacheItemPoolInterface pool
+     * {@inheritDoc}
+     * @see \Seeren\Cache\Test\AbstractCacheItemPoolTest::getCacheItemPool()
      */
    protected function getCacheItemPool(): CacheItemPoolInterface
    {

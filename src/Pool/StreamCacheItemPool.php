@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Cache\Pool\StreamCacheItemPool class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/cache
  * @version 1.0.2
  */
@@ -38,8 +37,6 @@ class StreamCacheItemPool extends AbstractCacheItemPool
         $includePath;
 
     /**
-     * Construct AbstractCacheItemPool
-     *
      * @param string $includePath include path
      * @return null
      */
@@ -53,10 +50,8 @@ class StreamCacheItemPool extends AbstractCacheItemPool
     }
 
     /**
-     * Get stream target
-     *
-     * @param string $key item key
-     * @return string target
+     * @param string $key
+     * @return string $target
      */
     private final function getTarget(string $key): string
     {
@@ -77,10 +72,8 @@ class StreamCacheItemPool extends AbstractCacheItemPool
     }
 
     /**
-     * Template method get item
-     *
-     * @param string $key key for which to return the corresponding cache item
-     * @return CacheItemInterface the corresponding cache item
+     * {@inheritDoc}
+     * @see \Seeren\Cache\Pool\AbstractCacheItemPool::poolGetItem()
      */
     protected final function poolGetItem(string $key): CacheItemInterface
     {
@@ -103,10 +96,8 @@ class StreamCacheItemPool extends AbstractCacheItemPool
     }
 
     /**
-     * Template method save item
-     *
-     * @param CacheItemInterface $item cache item to save
-     * @return bool if item was successfully persisted
+     * {@inheritDoc}
+     * @see \Seeren\Cache\Pool\AbstractCacheItemPool::poolSave()
      */
     protected final function poolSave(CacheItemInterface $item): bool
     {
@@ -123,10 +114,8 @@ class StreamCacheItemPool extends AbstractCacheItemPool
     }
 
     /**
-     * Template method Delete item
-     *
-     * @param CacheItemInterface $item cache item to delete
-     * @return bool if the item was successfully removed
+     * {@inheritDoc}
+     * @see \Seeren\Cache\Pool\AbstractCacheItemPool::poolDeleteItem()
      */
     protected final function poolDeleteItem(CacheItemInterface $item): bool
     {

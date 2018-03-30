@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Cache\Test\Pool\AbstractCacheItemPoolTest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/cache
  * @version 1.0.2
  */
@@ -31,8 +30,6 @@ abstract class AbstractCacheItemPoolTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
-     * Get CacheItemPoolInterface
-     *
      * @return CacheItemPoolInterface pool
      */
    abstract protected function getCacheItemPool(): CacheItemPoolInterface;
@@ -89,7 +86,6 @@ abstract class AbstractCacheItemPoolTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * 
     * Test has item InvalidArgumentException
     */
    public function testHasItemInvalidArgumentException()

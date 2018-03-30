@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Cache\Item\CacheItem class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/cache
  * @version 1.0.3
  */
@@ -33,35 +32,37 @@ final class CacheItem implements CacheItemInterface, ModifiedItemInterface
 
     private
         /**
-         * @var string key for the current cache item
+         * @var string
          */
         $key,
+
         /**
-         * @var string serialized value
+         * @var string
          */
         $value,
+
         /**
          * @var int request resulte in a cache hit
          */
         $hit,
+
         /**
          * @var int time to live
-        */
+         */
         $timeToLive,
+
         /**
          * @var int last save
-        */
+         */
         $lastSave,
+
         /**
          * @var int last modification
-        */
+         */
         $lastModification;
 
    /**
-    * Construct AbstractCacheItem
-    *
-    * @param string $key key for the current cache item
-    * @return null
+    * @param string $key
     */
    public final function __construct(string $key = null)
    {
@@ -73,10 +74,8 @@ final class CacheItem implements CacheItemInterface, ModifiedItemInterface
    }
 
    /**
-    * Set or get date of last modification
-    *
-    * @param int $timeStamp timeStamp of last modification
-    * @return string GMT of last modification
+    * {@inheritDoc}
+    * @see \Seeren\Cache\Item\ModifiedItemInterface::last()
     */
    public final function last(int $timeStamp = null): string
    {
@@ -89,9 +88,8 @@ final class CacheItem implements CacheItemInterface, ModifiedItemInterface
    }
 
    /**
-    * Get key
-    *
-    * @return string item key
+    * {@inheritDoc}
+    * @see \Psr\Cache\CacheItemInterface::getKey()
     */
    public final function getKey()
    {
@@ -99,9 +97,8 @@ final class CacheItem implements CacheItemInterface, ModifiedItemInterface
    }
 
    /**
-    * Get
-    * 
-    * @return mixed|null value corresponding to item's key
+    * {@inheritDoc}
+    * @see \Psr\Cache\CacheItemInterface::get()
     */
    public final function get()
    {
@@ -109,9 +106,8 @@ final class CacheItem implements CacheItemInterface, ModifiedItemInterface
    }
 
    /**
-    * Is hit
-    * 
-    * @return bool request resulte
+    * {@inheritDoc}
+    * @see \Psr\Cache\CacheItemInterface::isHit()
     */
    public final function isHit()
    {
@@ -119,10 +115,8 @@ final class CacheItem implements CacheItemInterface, ModifiedItemInterface
    }
 
    /**
-    * Set value
-    * @param mixed $value serializable value to be stored
-    *
-    * @return static The invoked object.
+    * {@inheritDoc}
+    * @see \Psr\Cache\CacheItemInterface::set()
     */
    public final function set($value)
    {
@@ -131,10 +125,8 @@ final class CacheItem implements CacheItemInterface, ModifiedItemInterface
    }
 
    /**
-    * Set expiration
-    *
-    * @param \DateTimeInterface|null $expiration
-    * @return static item
+    * {@inheritDoc}
+    * @see \Psr\Cache\CacheItemInterface::expiresAt()
     */
    public final function expiresAt($expiration)
    {
@@ -145,10 +137,8 @@ final class CacheItem implements CacheItemInterface, ModifiedItemInterface
    }
 
    /**
-    * Set expiration
-    *
-    * @param int|\DateInterval|null $time period of time
-    * @return static item
+    * {@inheritDoc}
+    * @see \Psr\Cache\CacheItemInterface::expiresAfter()
     */
    public final function expiresAfter($time)
    {
@@ -160,9 +150,7 @@ final class CacheItem implements CacheItemInterface, ModifiedItemInterface
    }
 
    /**
-    * Serialize
-    * 
-    * @return array attribute name collection
+    * @return string[]
     */
    public final function __sleep()
    {
@@ -178,9 +166,7 @@ final class CacheItem implements CacheItemInterface, ModifiedItemInterface
    }
 
    /**
-    * Unserialize
-    *
-    * @return array attribute name collection
+    * @return null
     */
    public final function __wakeup()
    {

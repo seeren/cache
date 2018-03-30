@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Cache\Test\Item\CacheItemInterfaceTest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/cache
  * @version 2.0.2
  */
@@ -30,9 +29,8 @@ class CacheItemTest extends AbstractCacheItemTest
 {
 
     /**
-     * Get CacheItemInterface
-     *
-     * @return CacheItemInterface cache
+     * {@inheritDoc}
+     * @see \Seeren\Cache\Test\AbstractCacheItemTest::getCacheItem()
      */
    protected final function getCacheItem(): CacheItemInterface
    {

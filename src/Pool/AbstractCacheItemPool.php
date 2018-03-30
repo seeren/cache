@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Cache\AbstractCacheItem class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/cache
  * @version 1.0.2
  */
@@ -32,12 +31,13 @@ abstract class AbstractCacheItemPool implements CacheItemPoolInterface
 {
 
     private
+
         /**
-         * @var array CacheItemInterface collection
+         * @var CacheItemInterface[]
          */
         $pool,
         /**
-         * @var array CacheItemInterface collection
+         * @var CacheItemInterface[]
          */
         $queue;
 
@@ -66,9 +66,7 @@ abstract class AbstractCacheItemPool implements CacheItemPoolInterface
     abstract protected function poolDeleteItem(CacheItemInterface $item): bool;
 
    /**
-    * Construct AbstractCacheItemPool
-    *
-    * @return null
+    * @constructor
     */
    protected function __construct()
    {
@@ -77,10 +75,8 @@ abstract class AbstractCacheItemPool implements CacheItemPoolInterface
    }
 
    /**
-    * Create item
-    * 
-    * @param string $key key for which to return the corresponding cache item
-    * @return CacheItemInterface item
+    * @param string $key
+    * @return CacheItemInterface
     */
    protected final function createItem(string $key): CacheItemInterface
    {
@@ -88,12 +84,8 @@ abstract class AbstractCacheItemPool implements CacheItemPoolInterface
    }
 
    /**
-    * Get item
-    * 
-    * @param string $key key for which to return the corresponding cache item
-    * @return CacheItemInterface the corresponding cache item
-    * 
-    * @throws InvalidArgumentException if the $key string is not legal
+    * {@inheritDoc}
+    * @see \Psr\Cache\CacheItemPoolInterface::getItem()
     */
    public final function getItem($key)
    {
@@ -108,12 +100,8 @@ abstract class AbstractCacheItemPool implements CacheItemPoolInterface
    }
 
    /**
-    * Get items
-    * 
-    * @param string[] $keys indexed array of keys of items to retrieve
-    * @return array|\Traversable traversable collection of cache items
-    * 
-    * @throws InvalidArgumentException if the $key string is not a legal
+    * {@inheritDoc}
+    * @see \Psr\Cache\CacheItemPoolInterface::getItems()
     */
    public final function getItems(array $keys = [])
    {
@@ -130,12 +118,8 @@ abstract class AbstractCacheItemPool implements CacheItemPoolInterface
    }
 
    /**
-    * Confirms if the cache contains specified cache item
-    * 
-    * @param string $key key for which to check existence
-    * @return bool if item exists in the cache
-    * 
-    * @throws InvalidArgumentException if the $key string is not a legal
+    * {@inheritDoc}
+    * @see \Psr\Cache\CacheItemPoolInterface::hasItem()
     */
    public final function hasItem($key)
    {
@@ -146,9 +130,8 @@ abstract class AbstractCacheItemPool implements CacheItemPoolInterface
    }
 
    /**
-    * Clear
-    *
-    * @return bool if the pool was successfully cleared
+    * {@inheritDoc}
+    * @see \Psr\Cache\CacheItemPoolInterface::clear()
     */
    public final function clear()
    {
@@ -161,12 +144,8 @@ abstract class AbstractCacheItemPool implements CacheItemPoolInterface
    }
 
    /**
-    * Delete item
-    *
-    * @param string $key key to delete
-    * @return bool if the item was successfully removed
-    * 
-    * @throws InvalidArgumentException if the $key string is not a legal
+    * {@inheritDoc}
+    * @see \Psr\Cache\CacheItemPoolInterface::deleteItem()
     */
    public final function deleteItem($key)
    {
@@ -183,12 +162,8 @@ abstract class AbstractCacheItemPool implements CacheItemPoolInterface
    }
 
    /**
-    * Delete items
-    *
-    * @param string[] $keys keys that should be removed
-    * @return bool if the items were successfully removed
-    * 
-    * @throws InvalidArgumentException If any of the keys are not a legal
+    * {@inheritDoc}
+    * @see \Psr\Cache\CacheItemPoolInterface::deleteItems()
     */
    public final function deleteItems(array $keys)
    {
@@ -205,11 +180,8 @@ abstract class AbstractCacheItemPool implements CacheItemPoolInterface
    }
 
    /**
-    * Persists a cache item immediately.
-    *
-    * @param CacheItemInterface $item cache item to save
-    *
-    * @return bool if item was successfully persisted
+    * {@inheritDoc}
+    * @see \Psr\Cache\CacheItemPoolInterface::save()
     */
    public final function save(CacheItemInterface $item)
    {
@@ -217,10 +189,8 @@ abstract class AbstractCacheItemPool implements CacheItemPoolInterface
    }
 
    /**
-    * Sets deferred
-    *
-    * @param CacheItemInterface $item cache item to save
-    * @return bool if the item could be queued
+    * {@inheritDoc}
+    * @see \Psr\Cache\CacheItemPoolInterface::saveDeferred()
     */
    public final function saveDeferred(CacheItemInterface $item)
    {
@@ -232,9 +202,8 @@ abstract class AbstractCacheItemPool implements CacheItemPoolInterface
    }
 
    /**
-    * Commit
-    *
-    * @return bool if all not-yet-saved items were successfully saved
+    * {@inheritDoc}
+    * @see \Psr\Cache\CacheItemPoolInterface::commit()
     */
    public final function commit()
    {
