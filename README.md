@@ -21,7 +21,7 @@ $pool = new StreamCacheItemPool;
 $eTag = md5($request->getUri()->getPath());
 $item = $pool->getItem($eTag)->expiresAfter(600);
 if (!$item->isHit()) {
-    $pool->save($item->set("data");
+    $pool->save($item->set("data"));
 }
 $data = $item->get();
 ```
