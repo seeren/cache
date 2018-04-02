@@ -17,7 +17,7 @@
 	"minimum-stability" : "dev",
 	"require" : {
 		"php" : ">=7.2.0",
-		"psr/cache" : "1.0.x-dev",
+		"psr/cache" : "1.0.1",
 		"seeren/http" : "dev-master"
 	},
 	"autoload" : {
