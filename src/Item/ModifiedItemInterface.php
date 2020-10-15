@@ -1,35 +1,28 @@
 <?php
 
+namespace Seeren\Cache\Item;
+
+use Psr\Cache\CacheItemInterface;
+
 /**
+ * Interface to represent a modified item
+ *
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @author (c) Cyril Ichti <consultant@seeren.fr>
- * @link https://github.com/seeren/cache
- * @version 1.0.1
+ * @package Seeren\Cache\Item
  */
-
-namespace Seeren\Cache\Item;
-
-/**
- * Interface for represent a modified item
- * 
- * @category Seeren
- * @package Cache
- * @subpackage Item
- */
-interface ModifiedItemInterface
+interface ModifiedItemInterface extends CacheItemInterface
 {
 
-   /**
-    * Set or get date of last modification
-    *
-    * @param int $timeStamp timeStamp of last modification
-    * @return string GMT of last modification
-    */
-   public function last(int $timeStamp): string;
+    /**
+     * Get the last GMT date of modification
+     *
+     * @return string
+     */
+   public function last(): string;
 
 }
