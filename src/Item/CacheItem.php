@@ -27,19 +27,19 @@ class CacheItem implements ModifiedItemInterface
     private string $key;
 
     /**
-     * @var string
+     * @var ?string
      */
-    private string $value;
+    private ?string $value = null;
 
     /**
      * @var bool
      */
-    private bool $hit;
+    private bool $hit = false;
 
     /**
      * @var int
      */
-    private int $timeToLive;
+    private int $timeToLive = 0;
 
     /**
      * @var int
@@ -52,8 +52,6 @@ class CacheItem implements ModifiedItemInterface
     public function __construct(string $key)
     {
         $this->key = $key;
-        $this->hit = false;
-        $this->timeToLive = 0;
         $this->lastSave = time();
     }
 
@@ -61,16 +59,16 @@ class CacheItem implements ModifiedItemInterface
      * {@inheritDoc}
      * @see ModifiedItemInterface::last()
      */
-    public final function last(): string
+    public function last(bool $expires = false): string
     {
-        return gmdate('D, d M Y H:i:s', $this->lastSave) . ' GMT';
+        return gmdate('D, d M Y H:i:s', $this->lastSave + ($expires ? $this->timeToLive : 0)) . ' GMT';
     }
 
     /**
      * {@inheritDoc}
      * @see CacheItemInterface::getKey()
      */
-    public final function getKey(): string
+    public function getKey(): string
     {
         return $this->key;
     }
@@ -79,7 +77,7 @@ class CacheItem implements ModifiedItemInterface
      * {@inheritDoc}
      * @see CacheItemInterface::get()
      */
-    public final function get()
+    public function get()
     {
         return $this->value;
     }
@@ -88,7 +86,7 @@ class CacheItem implements ModifiedItemInterface
      * {@inheritDoc}
      * @see CacheItemInterface::isHit()
      */
-    public final function isHit(): bool
+    public function isHit(): bool
     {
         return $this->hit;
     }
@@ -97,7 +95,7 @@ class CacheItem implements ModifiedItemInterface
      * {@inheritDoc}
      * @see CacheItemInterface::set()
      */
-    public final function set($value): self
+    public function set($value): self
     {
         $this->value = $value;
         return $this;
@@ -107,7 +105,7 @@ class CacheItem implements ModifiedItemInterface
      * {@inheritDoc}
      * @see CacheItemInterface::expiresAt()
      */
-    public final function expiresAt($expiration)
+    public function expiresAt($expiration): self
     {
         $this->timeToLive = $expiration instanceof DateTimeInterface ? $expiration->getTimestamp() - time() : 0;
         return $this;
@@ -117,7 +115,7 @@ class CacheItem implements ModifiedItemInterface
      * {@inheritDoc}
      * @see CacheItemInterface::expiresAfter()
      */
-    public final function expiresAfter($time)
+    public function expiresAfter($time): self
     {
         $this->timeToLive = $time instanceof DateInterval
             ? (new DateTime())->add($time)->getTimestamp() - time()
@@ -128,7 +126,7 @@ class CacheItem implements ModifiedItemInterface
     /**
      * @return string[]
      */
-    public final function __sleep()
+    public function __sleep(): array
     {
         $this->lastSave = time();
         return [
@@ -143,7 +141,7 @@ class CacheItem implements ModifiedItemInterface
     /**
      * @return void
      */
-    public final function __wakeup(): void
+    public function __wakeup(): void
     {
         $this->hit = 0 === $this->timeToLive || $this->lastSave + $this->timeToLive > time();
     }

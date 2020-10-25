@@ -1,387 +1,293 @@
 <?php
 
-/**
- *     __
- *    / /__ __ __ __ __ __
- *   / // // // // // // /
- *  /_// // // // // // /
- *    /_//_//_//_//_//_/
- *
- * @author (c) Cyril Ichti <consultant@seeren.fr>
- * @link https://github.com/seeren/cache
- * @version 2.1.1
- */
+namespace Seeren\Cache\Test\Pool;
 
-namespace Seeren\Cache\Test;
-
-use Psr\Cache\CacheItemPoolInterface;
+use PHPUnit\Framework\TestCase;
+use Psr\Cache\CacheItemInterface;
+use Psr\Cache\InvalidArgumentException;
 use Seeren\Cache\Pool\StreamCacheItemPool;
-use ReflectionClass;
 
-/**
- * Class for test StreamCacheItemPoolInterface
- * 
- * @category Seeren
- * @package Cache
- * @subpackage Test\Pool
- */
-class StreamCacheItemPoolTest extends AbstractCacheItemPoolTest
+class StreamCacheItemPoolTest extends TestCase
 {
 
     /**
-     * {@inheritDoc}
-     * @see \Seeren\Cache\Test\AbstractCacheItemPoolTest::getCacheItemPool()
+     * @return StreamCacheItemPool
      */
-   protected function getCacheItemPool(): CacheItemPoolInterface
-   {
-       return (new ReflectionClass(StreamCacheItemPool::class))
-              ->newInstanceArgs(["./test/cache"]);
-   }
+    public function getMock(): StreamCacheItemPool
+    {
+        return new StreamCacheItemPool(__DIR__ . '/../../var/cache');
+    }
 
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getTarget
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolGetItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::createItem
-    * @covers \Seeren\Cache\Item\CacheItem::__construct
-    * @covers \Seeren\Cache\Item\CacheItem::last
-    */
-   public function testGetItem()
-   {
-       parent::testGetItem();
-   }
+    /**
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::__construct
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
+     * @throws InvalidArgumentException
+     */
+    public function testGetItem(): void
+    {
+        $mock = $this->getMock();
+        $item = $mock->getItem('dummy.foo');
+        $this->assertInstanceOf(CacheItemInterface::class, $item);
+    }
 
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Exception\InvalidArgumentException::__construct
-    * @expectedException \Psr\Cache\InvalidArgumentException
-    */
-   public function testGetItemInvalidArgumentException()
-   {
-       parent::testGetItemInvalidArgumentException();
-   }
+    /**
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::__construct
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
+     * @covers \Seeren\Cache\Exception\InvalidArgumentException::__construct
+     */
+    public function testGetItemException(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->getMock()->getItem('/');
+    }
 
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getTarget
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolGetItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItems
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::createItem
-    * @covers \Seeren\Cache\Item\CacheItem::__construct
-    * @covers \Seeren\Cache\Item\CacheItem::last
-    */
-   public function testGetItems()
-   {
-       parent::testGetItems();
-   }
+    /**
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::__construct
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItems
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
+     * @throws InvalidArgumentException
+     */
+    public function testGetItems(): void
+    {
+        $mock = $this->getMock();
+        $this->assertCount(2, $mock->getItems(['foo', 'bar']));
+    }
 
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItems
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Exception\InvalidArgumentException::__construct
-    * @expectedException \Psr\Cache\InvalidArgumentException
-    */
-   public function testGetItemsInvalidArgumentException()
-   {
-       parent::testGetItemsInvalidArgumentException();
-   }
+    /**
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::__construct
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
+     * @throws InvalidArgumentException
+     */
+    public function testHasItem(): void
+    {
+        $mock = $this->getMock();
+        $mock->getItem('foo');
+        $this->assertTrue($mock->hasItem('foo'));
+    }
 
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Item\CacheItem::__construct
-    * @covers \Seeren\Cache\Item\CacheItem::last
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::createItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getTarget
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolGetItem
-    */
-   public function testHasItem()
-   {
-       parent::testHasItem();
-   }
+    /**
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::getKey
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::clear
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::remove
+     * @throws InvalidArgumentException
+     */
+    public function testClear(): void
+    {
+        $mock = $this->getMock();
+        $mock->getItem('foo');
+        $this->assertTrue($mock->clear());
+    }
 
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Exception\InvalidArgumentException::__construct
-    * @expectedException \Psr\Cache\InvalidArgumentException
-    */
-   public function testHasItemInvalidArgumentException()
-   {
-       parent::testHasItemInvalidArgumentException();
-   }
+    /**
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::getKey
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::clear
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::remove
+     * @throws InvalidArgumentException
+     */
+    public function testClearFail(): void
+    {
+        $mock = $this->getMock();
+        $mock->getItem('foo');
+        $mock->clear();
+        $this->assertFalse($mock->clear());
+    }
 
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::createItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getTarget
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolDeleteItem
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolGetItem
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::clear
-    * @covers \Seeren\Cache\Item\CacheItem::__construct
-    * @covers \Seeren\Cache\Item\CacheItem::getKey
-    * @covers \Seeren\Cache\Item\CacheItem::last
-    */
-   public function testClearTrue()
-   {
-       parent::testClearTrue();
-   }
+    /**
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::getKey
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::deleteItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::remove
+     * @throws InvalidArgumentException
+     */
+    public function testDeleteItem(): void
+    {
+        $mock = $this->getMock();
+        $mock->getItem('foo');
+        $this->assertTrue($mock->deleteItem('foo'));
+    }
 
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::createItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::clear
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getTarget
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolDeleteItem
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolGetItem
-    * @covers \Seeren\Cache\Item\CacheItem::__construct
-    * @covers \Seeren\Cache\Item\CacheItem::getKey
-    * @covers \Seeren\Cache\Item\CacheItem::last
-    */
-   public function testClearFalse()
-   {
-       $pool = $this->getCacheItemPool();
-       $pool->__construct();
-       $uniqId = uniqid();
-       $pool->getItem("dummy." . $uniqId);
-       unlink(sys_get_temp_dir() . "/dummy/" . $uniqId);
-       $this->assertFalse($pool->clear());
-   }
+    /**
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::__construct
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::deleteItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
+     * @throws InvalidArgumentException
+     */
+    public function testDeleteItemFail(): void
+    {
+        $mock = $this->getMock();
+        $mock->getItem('foo');
+        $mock->deleteItem('foo');
+        $this->assertFalse($mock->deleteItem('foo'));
+    }
 
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::createItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::deleteItem
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getTarget
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolDeleteItem
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolGetItem
-    * @covers \Seeren\Cache\Item\CacheItem::__construct
-    * @covers \Seeren\Cache\Item\CacheItem::getKey
-    * @covers \Seeren\Cache\Item\CacheItem::last
-    */
-   public function testDeleteItemTrue()
-   {
-       parent::testDeleteItemTrue();
-   }
+    /**
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::__construct
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::deleteItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::deleteItems
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItems
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
+     * @throws InvalidArgumentException
+     */
+    public function testDeleteItems(): void
+    {
+        $mock = $this->getMock();
+        $mock->getItems(['foo', 'bar']);
+        $this->assertTrue($mock->deleteItems(['foo', 'bar']));
+    }
 
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::deleteItem
-    */
-   public function testDeleteItemFalse()
-   {
-        parent::testDeleteItemFalse();
-   }
+    /**
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::__construct
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::deleteItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::deleteItems
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItems
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
+     * @throws InvalidArgumentException
+     */
+    public function testDeleteItemsFail(): void
+    {
+        $mock = $this->getMock();
+        $mock->getItems(['foo', 'bar']);
+        $this->assertFalse($mock->deleteItems(['foo', 'bar', 'baz']));
+    }
 
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::createItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::deleteItem
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getTarget
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolDeleteItem
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolGetItem
-    * @covers \Seeren\Cache\Item\CacheItem::__construct
-    * @covers \Seeren\Cache\Item\CacheItem::getKey
-    * @covers \Seeren\Cache\Item\CacheItem::last
-    */
-   public function testDeleteItemFalseUnlinked()
-   {
-       $pool = $this->getCacheItemPool();
-       $uniqId = uniqid();
-       $pool->getItem($uniqId);
-       unlink(__DIR__ . "/../cache/" . $uniqId);
-       $this->assertFalse($pool->deleteItem($uniqId));
-   }
+    /**
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::__sleep
+     * @covers \Seeren\Cache\Item\CacheItem::getKey
+     * @covers \Seeren\Cache\Item\CacheItem::set
+     * @covers \Seeren\Cache\Item\CacheItem::__wakeup
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::save
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::persist
+     * @throws InvalidArgumentException
+     */
+    public function testSave(): void
+    {
+        $mock = $this->getMock();
+        $item = $mock->getItem('qux');
+        $item->set('value');
+        $this->assertTrue($mock->save($item));
+    }
 
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::deleteItem
-    * @covers \Seeren\Cache\Exception\InvalidArgumentException::__construct
-    * @expectedException \Psr\Cache\InvalidArgumentException
-    */
-   public function testDeleteItemInvalidArgumentException()
-   {
-        parent::testDeleteItemInvalidArgumentException();
-   }
+    /**
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::__wakeup
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::saveDeferred
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
+     * @throws InvalidArgumentException
+     */
+    public function testSaveDeferred(): void
+    {
+        $mock = $this->getMock();
+        $item = $mock->getItem('qux');
+        $this->assertTrue($mock->saveDeferred($item));
+    }
 
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::createItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::deleteItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::deleteItems
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getTarget
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolDeleteItem
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolGetItem
-    * @covers \Seeren\Cache\Item\CacheItem::__construct
-    * @covers \Seeren\Cache\Item\CacheItem::getKey
-    * @covers \Seeren\Cache\Item\CacheItem::last
-    */
-   public function testDeleteItemsTrue()
-   {
-       parent::testDeleteItemsTrue();
-   }
+    /**
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::__wakeup
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::saveDeferred
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
+     * @throws InvalidArgumentException
+     */
+    public function testSaveDeferredFail(): void
+    {
+        $mock = $this->getMock();
+        $item = $mock->getItem('qux');
+        $mock->saveDeferred($item);
+        $this->assertFalse($mock->saveDeferred($item));
+    }
 
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::deleteItems
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::deleteItem
-    */
-   public function testDeleteItemsFalse()
-   {
-       parent::testDeleteItemsFalse();
-   }
-
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::deleteItems
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::deleteItem
-    * @covers \Seeren\Cache\Exception\InvalidArgumentException::__construct
-    * @expectedException \Psr\Cache\InvalidArgumentException
-    */
-   public function testDeleteItemsInvalidArgumentException()
-   {
-        parent::testDeleteItemsInvalidArgumentException();
-   }
-
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getTarget
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolGetItem
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::save
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolSave
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::createItem
-    * @covers \Seeren\Cache\Item\CacheItem::__construct
-    * @covers \Seeren\Cache\Item\CacheItem::last
-    * @covers \Seeren\Cache\Item\CacheItem::__sleep
-    * @covers \Seeren\Cache\Item\CacheItem::__wakeup
-    * @covers \Seeren\Cache\Item\CacheItem::set
-    * @covers \Seeren\Cache\Item\CacheItem::getKey
-    */
-   public function testSaveTrue()
-   {
-       parent::testSaveTrue();
-   }
-
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getTarget
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolGetItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::createItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::saveDeferred
-    * @covers \Seeren\Cache\Item\CacheItem::__construct
-    * @covers \Seeren\Cache\Item\CacheItem::last
-    */
-   public function testSaveDeferedTrue()
-   {
-       parent::testSaveDeferedTrue();
-   }
-
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getTarget
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolGetItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::createItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::saveDeferred
-    * @covers \Seeren\Cache\Item\CacheItem::__construct
-    * @covers \Seeren\Cache\Item\CacheItem::last
-    */
-   public function testSaveDeferedFalse()
-   {
-       parent::testSaveDeferedFalse();
-   }
-
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getTarget
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolGetItem
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolSave
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::createItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::saveDeferred
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::commit
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::save
-    * @covers \Seeren\Cache\Item\CacheItem::__construct
-    * @covers \Seeren\Cache\Item\CacheItem::last
-    * @covers \Seeren\Cache\Item\CacheItem::__sleep
-    * @covers \Seeren\Cache\Item\CacheItem::getKey
-    */
-   public function testCommitTrue()
-   {
-       parent::testCommitTrue();
-   }
-
-   /**
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
-    * @covers \Seeren\Cache\Item\CacheItem::__construct
-    * @covers \Seeren\Cache\Item\CacheItem::getKey
-    * @covers \Seeren\Cache\Item\CacheItem::last
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::__construct
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::commit
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::createItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::save
-    * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::saveDeferred
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getTarget
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolGetItem
-    * @covers \Seeren\Cache\Pool\StreamCacheItemPool::poolSave
-    */
-   public function testCommitFalse()
-   {
-       $pool = $this->getCacheItemPool();
-       $pool->__construct("./test/invalid target");
-       $item = $pool->getItem(uniqid());
-       $pool->saveDeferred($item);
-       $this->assertFalse($pool->commit());
-   }
+    /**
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::__construct
+     * @covers \Seeren\Cache\Item\CacheItem::__sleep
+     * @covers \Seeren\Cache\Item\CacheItem::__wakeup
+     * @covers \Seeren\Cache\Item\CacheItem::getKey
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::commit
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::getItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::hasItem
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::save
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::saveDeferred
+     * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
+     * @covers \Seeren\Cache\Pool\StreamCacheItemPool::persist
+     * @throws InvalidArgumentException
+     */
+    public function testCommit(): void
+    {
+        $mock = $this->getMock();
+        $item = $mock->getItem('qux');
+        $mock->saveDeferred($item);
+        $this->assertTrue($mock->commit());
+    }
 
 }

@@ -18,7 +18,8 @@
   ],
   "require": {
     "php": ">=7.4.0",
-    "psr/cache": "1.0.1"
+    "psr/cache": "1.0.1",
+    "seeren/http": "~3.1"
   },
   "autoload": {
     "psr-4": {

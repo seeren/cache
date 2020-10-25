@@ -1,126 +1,97 @@
 <?php
 
+namespace Seeren\Cache\Pool;
+
+use Psr\Cache\CacheItemInterface;
+use Seeren\Http\Stream\Stream;
+use Seeren\Cache\Item\CacheItem;
+
 /**
+ * Class to represent a stream cache pool
+ *
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @author (c) Cyril Ichti <consultant@seeren.fr>
- * @link https://github.com/seeren/cache
- * @version 1.0.2
- */
-
-namespace Seeren\Cache\Pool;
-
-use Psr\Cache\CacheItemInterface;
-use Seeren\Http\Stream\Stream;
-use Seeren\Cache\Item\CacheItem;
-use InvalidArgumentException;
-
-/**
- * Class for represent a stream cache item pool
- * 
- * @category Seeren
- * @package Cache
- * @subpackage Pool
- * @see http://www.php-fig.org/psr/psr-6/
+ * @package Seeren\Cache\Pool
  */
 class StreamCacheItemPool extends AbstractCacheItemPool
 {
 
-    private
-        /**
-         * @var string include path
-         */
-        $includePath;
+    /**
+     * @var string
+     */
+    private string $includePath;
 
     /**
-     * @param string $includePath include path
-     * @return null
+     * @param string|null $includePath
      */
     public function __construct(string $includePath = null)
     {
-        parent::__construct();
-        $this->includePath = ($includePath
-                           ? trim($includePath, DIRECTORY_SEPARATOR)
-                           : sys_get_temp_dir())
-                           . DIRECTORY_SEPARATOR;
+        $this->includePath = rtrim(
+            $includePath ?? dirname(__FILE__, 6)
+            . DIRECTORY_SEPARATOR
+            . 'var'
+            . DIRECTORY_SEPARATOR
+            . 'cache',
+            DIRECTORY_SEPARATOR
+        );
     }
 
     /**
      * @param string $key
      * @return string $target
      */
-    private final function getTarget(string $key): string
+    private function getFilename(string $key): string
     {
-        $dir = explode(".", $key);
-        $file = array_pop($dir);
-        $target = implode(DIRECTORY_SEPARATOR, $dir)
-                . DIRECTORY_SEPARATOR . $file;
+        $directories = explode('.', $key);
+        $target = $this->includePath . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $directories);
         if (!is_file($target)) {
-            $path = "";
-            foreach ($dir as $value) {
-                $path .= $value . DIRECTORY_SEPARATOR;
+            $path = '';
+            array_pop($directories);
+            foreach ($directories as $directory) {
+                $path .= DIRECTORY_SEPARATOR . $directory;
                 if (!is_dir($this->includePath . $path)) {
                     mkdir($this->includePath . $path);
                 }
             }
-        }        
+        }
         return $target;
     }
 
     /**
      * {@inheritDoc}
-     * @see \Seeren\Cache\Pool\AbstractCacheItemPool::poolGetItem()
+     * @see AbstractCacheItemPool::create()
      */
-    protected final function poolGetItem(string $key): CacheItemInterface
+    protected function create(string $key): CacheItemInterface
     {
-        try {
-            $stream = new Stream(
-                $this->includePath . $this->getTarget($key),
-                Stream::MODE_C_MORE);
-            $serialized = $stream->__toString();
-            $stream->detach();
-            if ($serialized) {
-                $item = unserialize($serialized);
-                if (is_object($item) && $item instanceof CacheItem) {
-                    return $item;
-                }
-            }
-            throw new InvalidArgumentException("Item must implement psr-6");
-        } catch (InvalidArgumentException $e) {
-            return $this->createItem($key);
-        }
+        $serialized = (string)new Stream($this->getFilename($key), Stream::MODE_C_MORE);
+        return $serialized ? unserialize($serialized) : new CacheItem($key);
     }
 
     /**
      * {@inheritDoc}
-     * @see \Seeren\Cache\Pool\AbstractCacheItemPool::poolSave()
+     * @see AbstractCacheItemPool::persist()
      */
-    protected final function poolSave(CacheItemInterface $item): bool
+    protected function persist(CacheItemInterface $item): bool
     {
-        try {
-            $stream = new Stream(
-                $this->includePath . $this->getTarget($item->getKey()),
-                Stream::MODE_W_MORE);
-            $stream->write(serialize($item));
-            $stream->detach();
-            return true;
-        } catch (InvalidArgumentException $e) {
-            return false;
-        }
+        $stream = new Stream($this->getFilename($item->getKey()), Stream::MODE_W_MORE);
+        $stream->write(serialize($item));
+        $stream->detach();
+        return true;
+
     }
 
     /**
      * {@inheritDoc}
-     * @see \Seeren\Cache\Pool\AbstractCacheItemPool::poolDeleteItem()
+     * @see AbstractCacheItemPool::remove()
      */
-    protected final function poolDeleteItem(CacheItemInterface $item): bool
+    protected function remove(CacheItemInterface $item): bool
     {
-         return is_file($this->includePath . $item->getKey())
-             && unlink($this->includePath . $item->getKey());
+        $filename = $this->getFilename($item->getKey());
+        return is_file($filename) && unlink($filename);
     }
 
 }

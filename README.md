@@ -1,60 +1,57 @@
-# cache
- [![Build Status](https://travis-ci.org/seeren/cache.svg?branch=master)](https://travis-ci.org/seeren/cache) [![Coverage Status](https://coveralls.io/repos/github/seeren/cache/badge.svg?branch=master)](https://coveralls.io/github/seeren/cache?branch=master) [![Packagist](https://img.shields.io/packagist/dt/seeren/cache.svg)](https://packagist.org/packages/seeren/cache/stats) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4a0463fb5a084be5bda68e4e36d7c7ac)](https://www.codacy.com/app/seeren/cache?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=seeren/cache&amp;utm_campaign=Badge_Grade) [![Packagist](https://img.shields.io/packagist/v/seeren/cache.svg)](https://packagist.org/packages/seeren/cache#) [![Packagist](https://img.shields.io/packagist/l/seeren/log.svg)](LICENSE)
+# Seeren\Cache
 
-**Manage pool items**
-> This package contain implementations of the [PSR-6 cache interfaces](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-6-cache.md)
+[![Build Status](https://travis-ci.org/seeren/cache.svg?branch=master)](https://travis-ci.org/seeren/cache) [![Coverage Status](https://coveralls.io/repos/github/seeren/cache/badge.svg?branch=master)](https://coveralls.io/github/seeren/cache?branch=master) [![Packagist](https://img.shields.io/packagist/dt/seeren/cache.svg)](https://packagist.org/packages/seeren/cache/stats) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4a0463fb5a084be5bda68e4e36d7c7ac)](https://www.codacy.com/app/seeren/cache?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=seeren/cache&amp;utm_campaign=Badge_Grade) [![Packagist](https://img.shields.io/packagist/v/seeren/cache.svg)](https://packagist.org/packages/seeren/cache#) [![Packagist](https://img.shields.io/packagist/l/seeren/log.svg)](LICENSE)
 
-## Features
-* Manage cache pool and items
+Cache items in pool
 
 ## Installation
-Require this package with [composer](https://getcomposer.org/)
+
+Seeren\Cache is a [PSR-6 cache interfaces](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-6-cache.md) implementation
+
 ```
-composer require seeren/cache dev-master
+composer require seeren/cache
 ```
 
-## Usage
-#### `Seeren\Cache\StreamCacheItemPool`
-Store data in pool item
+## Seeren\Cache\StreamCacheItemPool
+
+Store item in stream pool
+
 ```php
-$pool = new StreamCacheItemPool;
-$eTag = md5($request->getUri()->getPath());
-$item = $pool->getItem($eTag)->expiresAfter(600);
+use Seeren\Cache\Pool\StreamCacheItemPool;
+
+$pool = new StreamCacheItemPool();
+$item = $pool
+    ->getItem('foo')
+    ->expiresAfter(5);
 if (!$item->isHit()) {
-    $pool->save($item->set("data"));
+    $item->set("item data");
+    $pool->save();
 }
 $data = $item->get();
 ```
 
-#### `Seeren\Cache\CacheItem`
-Use item for manage Last-Modified
-```php
-if ($item->last() === $request->getHeaderLine("If-Modified-Since")
- && $eTag === $request->getHeaderLine("If-None-Match")) {
-    $response = $response->withStatus(304);
-} 
+By default, cache folder is in /var/cache
+
+```bash
+project/
+└─ var/
+   └─ log/
 ```
 
-Use item for manage Expires
+## Seeren\Cache\CacheItem
+
+Use item for manage Last-Modified with the extra method `last`
+
 ```php
 $response = $response
 ->withHeader("ETag", $eTag)
 ->withHeader("Last-Modified", $item->last())
 ->withHeader("Cache-Control", "public, max-age=" . $timeToLive)
-->withHeader("Expires", $item->last(time() + $timeToLive));
+->withHeader("Expires", $item->last(true));
 ```
 
-## Run Tests
-Run [phpunit](https://phpunit.de/) with [Xdebug](https://xdebug.org/) enable and [OPcache](http://php.net/manual/fr/book.opcache.php) disable
-```
-./vendor/bin/phpunit
-```
-
-## Run Coverage
-Run [coveralls](https://coveralls.io/)
-```
-./vendor/bin/php-coveralls -v
-```
+> Passing true at `last` add the timeToLive to the lastSave timestamp.
 
 ## License
-This project is licensed under the **MIT License** - see the [license](LICENSE) file for details.
+
+This project is licensed under the MIT License

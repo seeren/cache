@@ -2,11 +2,11 @@
 
 namespace Seeren\Cache\Exception;
 
-use Psr\Cache\InvalidArgumentException as PsrInvalidArgumentException;
 use Exception;
+use Throwable;
 
 /**
- * Class to represent an InvalidArgumentException
+ * Class to represent invalid argument exception
  *
  *     __
  *    / /__ __ __ __ __ __
@@ -16,15 +16,15 @@ use Exception;
  *
  * @package Seeren\Cache\Exception
  */
-class InvalidArgumentException extends Exception implements PsrInvalidArgumentException
+class InvalidArgumentException extends Exception implements \Psr\Cache\InvalidArgumentException
 {
 
     /**
      * @param string $message
      * @param int $code
-     * @param Exception|null $previous
+     * @param Throwable|null $previous
      */
-    public function __construct(string $message, int $code = E_NOTICE, Exception $previous = null)
+    public function __construct($message = "", $code = 0, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }
