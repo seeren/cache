@@ -40,7 +40,7 @@ project/
 
 ## Seeren\Cache\CacheItem
 
-Use item for manage Last-Modified with the extra method `last`
+Use item for manage `Last-Modified` with the extra method `last`
 
 ```php
 $response = $response
@@ -50,7 +50,7 @@ $response = $response
 ->withHeader("Expires", $item->last(true));
 ```
 
-> Passing true at `last` add the timeToLive to the lastSave timestamp.
+> Passing true at `last` add the timeToLive to the lastSave timestamp
 
 ## License
 
