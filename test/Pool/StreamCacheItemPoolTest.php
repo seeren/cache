@@ -15,7 +15,7 @@ class StreamCacheItemPoolTest extends TestCase
      */
     public function getMock(): StreamCacheItemPool
     {
-        return new StreamCacheItemPool(__DIR__ . '/../../var/cache');
+        return new StreamCacheItemPool(__DIR__ . '/../var/cache');
     }
 
     /**

@@ -5,17 +5,15 @@ namespace Seeren\Cache\Test\Item;
 use DateInterval;
 use DateTime;
 use PHPUnit\Framework\TestCase;
-use Psr\Cache\CacheItemInterface;
 use Seeren\Cache\Item\CacheItem;
-use Seeren\Cache\Item\ModifiedItemInterface;
 
 class ItemTest extends TestCase
 {
 
     /**
-     * @return CacheItemInterface
+     * @return CacheItem
      */
-    public function getMock(): ModifiedItemInterface
+    public function getMock(): CacheItem
     {
         return new CacheItem('foo');
     }
