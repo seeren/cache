@@ -17,9 +17,9 @@
     }
   ],
   "require": {
-    "php": ">=7.4.0",
-    "psr/cache": "1.0.1",
-    "seeren/http": "^3.1"
+    "php": ">=8.0.1",
+    "psr/cache": "^3.0",
+    "seeren/http": "^4.0"
   },
   "autoload": {
     "psr-4": {
@@ -32,7 +32,14 @@
     }
   },
   "require-dev": {
-    "phpunit/phpunit": "9.4.0",
-    "php-coveralls/php-coveralls": "v2.4.1"
+    "phpunit/phpunit": "^9.5",
+    "php-coveralls/php-coveralls": "^v2.5.2"
+  },
+  "scripts": {
+    "start": "php -S localhost:8000 -t public",
+    "test": [
+      "@putenv XDEBUG_MODE=coverage",
+      "phpunit --color=always --coverage-text"
+    ]
   }
 }
