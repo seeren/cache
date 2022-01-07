@@ -10,9 +10,6 @@ use Seeren\Cache\Item\CacheItem;
 class ItemTest extends TestCase
 {
 
-    /**
-     * @return CacheItem
-     */
     public function getMock(): CacheItem
     {
         return new CacheItem('foo');
@@ -126,7 +123,6 @@ class ItemTest extends TestCase
      * @covers \Seeren\Cache\Item\CacheItem::__construct
      * @covers \Seeren\Cache\Item\CacheItem::expiresAfter
      * @covers \Seeren\Cache\Item\CacheItem::last
-     * @throws \Exception
      */
     public function testExpiresAfterInterval(): void
     {

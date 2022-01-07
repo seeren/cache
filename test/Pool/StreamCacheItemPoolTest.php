@@ -10,9 +10,6 @@ use Seeren\Cache\Pool\StreamCacheItemPool;
 class StreamCacheItemPoolTest extends TestCase
 {
 
-    /**
-     * @return StreamCacheItemPool
-     */
     public function getMock(): StreamCacheItemPool
     {
         return new StreamCacheItemPool(__DIR__ . '/../var/cache');
@@ -26,7 +23,6 @@ class StreamCacheItemPoolTest extends TestCase
      * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
-     * @throws InvalidArgumentException
      */
     public function testGetItem(): void
     {
@@ -60,7 +56,6 @@ class StreamCacheItemPoolTest extends TestCase
      * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
-     * @throws InvalidArgumentException
      */
     public function testGetItems(): void
     {
@@ -76,7 +71,6 @@ class StreamCacheItemPoolTest extends TestCase
      * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
-     * @throws InvalidArgumentException
      */
     public function testHasItem(): void
     {
@@ -96,7 +90,6 @@ class StreamCacheItemPoolTest extends TestCase
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::remove
-     * @throws InvalidArgumentException
      */
     public function testClear(): void
     {
@@ -116,7 +109,6 @@ class StreamCacheItemPoolTest extends TestCase
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::remove
-     * @throws InvalidArgumentException
      */
     public function testClearFail(): void
     {
@@ -137,7 +129,6 @@ class StreamCacheItemPoolTest extends TestCase
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::remove
-     * @throws InvalidArgumentException
      */
     public function testDeleteItem(): void
     {
@@ -155,7 +146,6 @@ class StreamCacheItemPoolTest extends TestCase
      * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
-     * @throws InvalidArgumentException
      */
     public function testDeleteItemFail(): void
     {
@@ -176,7 +166,6 @@ class StreamCacheItemPoolTest extends TestCase
      * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
-     * @throws InvalidArgumentException
      */
     public function testDeleteItems(): void
     {
@@ -196,7 +185,6 @@ class StreamCacheItemPoolTest extends TestCase
      * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
-     * @throws InvalidArgumentException
      */
     public function testDeleteItemsFail(): void
     {
@@ -219,7 +207,6 @@ class StreamCacheItemPoolTest extends TestCase
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::persist
-     * @throws InvalidArgumentException
      */
     public function testSave(): void
     {
@@ -238,7 +225,6 @@ class StreamCacheItemPoolTest extends TestCase
      * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
-     * @throws InvalidArgumentException
      */
     public function testSaveDeferred(): void
     {
@@ -256,7 +242,6 @@ class StreamCacheItemPoolTest extends TestCase
      * @covers \Seeren\Cache\Pool\AbstractCacheItemPool::validateKey
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
-     * @throws InvalidArgumentException
      */
     public function testSaveDeferredFail(): void
     {
@@ -280,7 +265,6 @@ class StreamCacheItemPoolTest extends TestCase
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::create
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::getFilename
      * @covers \Seeren\Cache\Pool\StreamCacheItemPool::persist
-     * @throws InvalidArgumentException
      */
     public function testCommit(): void
     {

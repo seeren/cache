@@ -5,29 +5,13 @@ namespace Seeren\Cache\Pool;
 use Psr\Cache\CacheItemInterface;
 use Seeren\Http\Stream\Stream;
 use Seeren\Cache\Item\CacheItem;
+use Seeren\Http\Stream\StreamInterface;
 
-/**
- * Class to represent a stream cache pool
- *
- *     __
- *    / /__ __ __ __ __ __
- *   / // // // // // // /
- *  /_// // // // // // /
- *    /_//_//_//_//_//_/
- *
- * @package Seeren\Cache\Pool
- */
 class StreamCacheItemPool extends AbstractCacheItemPool
 {
 
-    /**
-     * @var string
-     */
     private string $includePath;
 
-    /**
-     * @param string|null $includePath
-     */
     public function __construct(string $includePath = null)
     {
         $this->includePath = rtrim(
@@ -40,10 +24,6 @@ class StreamCacheItemPool extends AbstractCacheItemPool
         );
     }
 
-    /**
-     * @param string $key
-     * @return string $target
-     */
     private function getFilename(string $key): string
     {
         $directories = explode('.', $key);
@@ -61,34 +41,22 @@ class StreamCacheItemPool extends AbstractCacheItemPool
         return $target;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see AbstractCacheItemPool::create()
-     */
-    protected function create(string $key): CacheItemInterface
+    protected final function create(string $key): CacheItemInterface
     {
-        $serialized = (string)new Stream($this->getFilename($key), Stream::MODE_C_MORE);
+        $serialized = (string)new Stream($this->getFilename($key), StreamInterface::MODE_C_MORE);
         return $serialized ? unserialize($serialized) : new CacheItem($key);
     }
 
-    /**
-     * {@inheritDoc}
-     * @see AbstractCacheItemPool::persist()
-     */
-    protected function persist(CacheItemInterface $item): bool
+    protected final function persist(CacheItemInterface $item): bool
     {
-        $stream = new Stream($this->getFilename($item->getKey()), Stream::MODE_W_MORE);
+        $stream = new Stream($this->getFilename($item->getKey()), StreamInterface::MODE_W_MORE);
         $stream->write(serialize($item));
         $stream->detach();
         return true;
 
     }
 
-    /**
-     * {@inheritDoc}
-     * @see AbstractCacheItemPool::remove()
-     */
-    protected function remove(CacheItemInterface $item): bool
+    protected final function remove(CacheItemInterface $item): bool
     {
         $filename = $this->getFilename($item->getKey());
         return is_file($filename) && unlink($filename);

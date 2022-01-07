@@ -3,119 +3,61 @@
 namespace Seeren\Cache\Item;
 
 use DateTimeInterface;
-use Psr\Cache\CacheItemInterface;
 use DateInterval;
 use DateTime;
 
-/**
- * Class to represent a cache item
- *
- *     __
- *    / /__ __ __ __ __ __
- *   / // // // // // // /
- *  /_// // // // // // /
- *    /_//_//_//_//_//_/
- *
- * @package Seeren\Cache\Item
- */
 class CacheItem implements ModifiedItemInterface
 {
 
-    /**
-     * @var string
-     */
-    private string $key;
-
-    /**
-     * @var ?string
-     */
     private ?string $value = null;
 
-    /**
-     * @var bool
-     */
     private bool $hit = false;
 
-    /**
-     * @var int
-     */
     private int $timeToLive = 0;
 
-    /**
-     * @var int
-     */
     private int $lastSave;
 
-    /**
-     * @param string $key
-     */
-    public function __construct(string $key)
+    public function __construct(private string $key)
     {
-        $this->key = $key;
         $this->lastSave = time();
     }
 
-    /**
-     * {@inheritDoc}
-     * @see ModifiedItemInterface::last()
-     */
-    public function last(bool $expires = false): string
+    public final function last(bool $expires = false): string
     {
-        return gmdate('D, d M Y H:i:s', $this->lastSave + ($expires ? $this->timeToLive : 0)) . ' GMT';
+        return gmdate(
+                'D, d M Y H:i:s',
+                $this->lastSave + ($expires ? $this->timeToLive : 0)
+            ) . ' GMT';
     }
 
-    /**
-     * {@inheritDoc}
-     * @see CacheItemInterface::getKey()
-     */
-    public function getKey(): string
+    public final function getKey(): string
     {
         return $this->key;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see CacheItemInterface::get()
-     */
-    public function get()
+    public final function get(): mixed
     {
         return $this->value;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see CacheItemInterface::isHit()
-     */
-    public function isHit(): bool
+    public final function isHit(): bool
     {
         return $this->hit;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see CacheItemInterface::set()
-     */
-    public function set($value): self
+    public final function set(mixed $value): static
     {
         $this->value = $value;
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see CacheItemInterface::expiresAt()
-     */
-    public function expiresAt($expiration): self
+    public final function expiresAt(?DateTimeInterface $expiration): static
     {
-        $this->timeToLive = $expiration instanceof DateTimeInterface ? $expiration->getTimestamp() - time() : 0;
+        $this->timeToLive = $expiration ? $expiration->getTimestamp() - time() : 0;
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see CacheItemInterface::expiresAfter()
-     */
-    public function expiresAfter($time): self
+    public final function expiresAfter(int|DateInterval|null $time): static
     {
         $this->timeToLive = $time instanceof DateInterval
             ? (new DateTime())->add($time)->getTimestamp() - time()
@@ -123,25 +65,19 @@ class CacheItem implements ModifiedItemInterface
         return $this;
     }
 
-    /**
-     * @return string[]
-     */
-    public function __sleep(): array
+    public final function __sleep(): array
     {
         $this->lastSave = time();
         return [
-            "key",
-            "hit",
-            "timeToLive",
-            "lastSave",
-            "value"
+            'key',
+            'hit',
+            'timeToLive',
+            'lastSave',
+            'value'
         ];
     }
 
-    /**
-     * @return void
-     */
-    public function __wakeup(): void
+    public final function __wakeup(): void
     {
         $this->hit = 0 === $this->timeToLive || $this->lastSave + $this->timeToLive > time();
     }
